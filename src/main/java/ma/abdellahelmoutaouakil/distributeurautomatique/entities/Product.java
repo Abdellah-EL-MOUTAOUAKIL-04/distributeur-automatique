@@ -16,9 +16,4 @@ public class Product {
     @NotNull(message = "Le prix ne peut pas être null")
     @Column(nullable = false)
     private float price;
-
-    //Pour verifier si le produit est achetable
-    public boolean isPurchasable(float availableAmount) {
-        return this.price <= availableAmount;
-    }
 }

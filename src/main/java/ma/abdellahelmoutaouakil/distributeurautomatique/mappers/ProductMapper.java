@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
-    @Mapping(target = "purchasable", expression = "java(product.isPurchasable(availableAmount))")
-    ProductDTO toDTO(Product product, @Context float availableAmount);
+    ProductDTO toDTO(Product product);
     Product fromDTO(ProductDTO dto);
 }
