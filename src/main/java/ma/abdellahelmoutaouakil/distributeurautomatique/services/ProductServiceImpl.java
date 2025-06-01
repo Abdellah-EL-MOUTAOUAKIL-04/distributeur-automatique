@@ -1,38 +1,59 @@
 package ma.abdellahelmoutaouakil.distributeurautomatique.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.ProductDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Product;
 import ma.abdellahelmoutaouakil.distributeurautomatique.exceptions.ProductNotFoundException;
+import ma.abdellahelmoutaouakil.distributeurautomatique.mappers.ProductMapper;
 import ma.abdellahelmoutaouakil.distributeurautomatique.repositories.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
+@AllArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
+    private ProductRepository productRepository;
+    private ProductMapper productMapper;
 
-    private final ProductRepository productRepository;
-
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    @Override
+    public List<ProductDTO> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public List<Product> getPurchasableProducts(float availableAmount) {
-        return productRepository.findAll().stream()
+    @Override
+    public List<ProductDTO> getPurchasableProducts(float availableAmount) {
+        List<Product> products = productRepository.findAll().stream()
                 .filter(p -> p.getPrice() <= availableAmount)
                 .toList();
+        return products.stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Product getById(Long id) {
-        return productRepository.findById(id)
+    @Override
+    public ProductDTO getById(Long id) {
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
+        return productMapper.toDTO(product);
     }
 
-    public Product save(Product product) {
-        return productRepository.save(product);
+    @Override
+    public ProductDTO save(ProductDTO productDTO) {
+        Product product = productMapper.fromDTO(productDTO);
+        Product savedProduct = productRepository.save(product);
+        return productMapper.toDTO(savedProduct);
     }
 
+    @Override
     public void delete(Long id) {
         if (!productRepository.existsById(id)) {
             throw new ProductNotFoundException(id);

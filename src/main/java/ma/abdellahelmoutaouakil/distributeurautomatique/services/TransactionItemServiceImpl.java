@@ -1,23 +1,35 @@
 package ma.abdellahelmoutaouakil.distributeurautomatique.services;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.TransactionItemDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Product;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Transaction;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.TransactionItem;
+import ma.abdellahelmoutaouakil.distributeurautomatique.mappers.TransactionItemMapper;
 import ma.abdellahelmoutaouakil.distributeurautomatique.repositories.TransactionItemRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
+@Transactional
+@AllArgsConstructor
+@Slf4j
 public class TransactionItemServiceImpl implements TransactionItemService {
+    private TransactionItemRepository transactionItemRepository;
+    private TransactionItemMapper transactionItemMapper;
 
-    private final TransactionItemRepository transactionItemRepository;
+    @Override
+    public TransactionItemDTO addItem(Transaction transaction, Product product, int quantity) {
+        log.info("Adding item to transaction [transactionId={}, productId={}, quantity={}]",
+                transaction.getId(), product.getId(), quantity);
 
-    public TransactionItem addItem(Transaction transaction, Product product, int quantity) {
         TransactionItem item = new TransactionItem();
         item.setTransaction(transaction);
         item.setProduct(product);
         item.setQuantity(quantity);
-        return transactionItemRepository.save(item);
+
+        TransactionItem saved = transactionItemRepository.save(item);
+        return transactionItemMapper.toDTO(saved);
     }
 }

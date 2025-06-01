@@ -1,13 +1,13 @@
 package ma.abdellahelmoutaouakil.distributeurautomatique.services;
 
-import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Product;
+import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.ProductDTO;
 
 import java.util.List;
 
 public interface ProductService {
-    public List<Product> getAllProducts();
-    public List<Product> getPurchasableProducts(float availableAmount);
-    public Product getById(Long id);
-    public Product save(Product product);
-    public void delete(Long id);
+    List<ProductDTO> getAllProducts();
+    List<ProductDTO> getPurchasableProducts(float availableAmount);
+    ProductDTO getById(Long id);
+    ProductDTO save(ProductDTO productDTO);
+    void delete(Long id);
 }

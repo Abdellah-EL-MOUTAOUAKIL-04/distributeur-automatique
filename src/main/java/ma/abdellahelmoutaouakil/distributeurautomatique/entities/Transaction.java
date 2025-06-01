@@ -3,13 +3,19 @@ package ma.abdellahelmoutaouakil.distributeurautomatique.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ma.abdellahelmoutaouakil.distributeurautomatique.enums.TransactionStatus;
 
 import java.util.List;
 
 @Entity
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Transaction {
 
     @Id
