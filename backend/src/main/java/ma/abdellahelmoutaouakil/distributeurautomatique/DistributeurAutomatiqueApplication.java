@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
 public class DistributeurAutomatiqueApplication {
@@ -14,6 +15,7 @@ public class DistributeurAutomatiqueApplication {
         SpringApplication.run(DistributeurAutomatiqueApplication.class, args);
     }
     @Bean
+    @Profile("!test")
     public CommandLineRunner initProducts(ProductRepository productRepository) {
         return args -> {
             if (productRepository.count() == 0) {

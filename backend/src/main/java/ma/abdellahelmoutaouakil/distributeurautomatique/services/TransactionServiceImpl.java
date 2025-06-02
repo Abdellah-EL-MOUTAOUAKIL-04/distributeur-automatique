@@ -42,7 +42,9 @@ public class TransactionServiceImpl implements TransactionService {
         log.warn("Cancelling transaction ID: {}", transaction.getId());
         transaction.setStatus(TransactionStatus.CANCELLED);
         transaction.setChangeGiven(transaction.getInsertedAmount());
-        transaction.getItems().clear(); // facultatif selon le comportement souhaité
+        if (transaction.getItems() != null) {
+            transaction.getItems().clear();
+        }
         transactionRepository.save(transaction);
     }
 

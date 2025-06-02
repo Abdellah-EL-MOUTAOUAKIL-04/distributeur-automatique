@@ -1,45 +1,35 @@
 package ma.abdellahelmoutaouakil.distributeurautomatique.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.ProductDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.services.ProductService;
 import ma.abdellahelmoutaouakil.distributeurautomatique.services.VendingMachineService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
 import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.hamcrest.Matchers.*;
-@WebMvcTest(ProductController.class)
+
 class ProductControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
     private ProductService productService;
-
-    @Autowired
     private VendingMachineService vendingMachineService;
 
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public ProductService productService() {
-            return Mockito.mock(ProductService.class);
-        }
-
-        @Bean
-        public VendingMachineService vendingMachineService() {
-            return Mockito.mock(VendingMachineService.class);
-        }
+    @BeforeEach
+    void setUp() {
+        productService = Mockito.mock(ProductService.class);
+        vendingMachineService = Mockito.mock(VendingMachineService.class);
+        ProductController controller = new ProductController(productService);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
