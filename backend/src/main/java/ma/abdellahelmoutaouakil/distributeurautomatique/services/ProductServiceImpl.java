@@ -31,12 +31,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> getPurchasableProducts(float availableAmount) {
-        List<Product> products = productRepository.findAll().stream()
-                .filter(p -> p.getPrice() <= availableAmount)
-                .toList();
+        List<Product> products = productRepository.findAll();
+
         return products.stream()
-                .map(productMapper::toDTO)
-                .collect(Collectors.toList());
+                .map(product -> {
+                    ProductDTO dto = productMapper.toDTO(product);
+                    dto.setPurchasable(product.getPrice() <= availableAmount); // 👍 ici le seul champ dynamique
+                    return dto;
+                })
+                .toList();
     }
 
     @Override

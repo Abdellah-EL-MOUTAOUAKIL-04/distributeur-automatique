@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.TransactionDTO;
+import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.ProductDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Product;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Transaction;
 import ma.abdellahelmoutaouakil.distributeurautomatique.enums.TransactionStatus;
