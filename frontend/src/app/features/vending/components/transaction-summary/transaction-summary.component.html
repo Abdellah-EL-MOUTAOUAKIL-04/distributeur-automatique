@@ -1,1 +1,7 @@
-<p>transaction-summary works!</p>
+<div class="action-buttons">
+  <button (click)="cancelTransaction()">Annuler</button>
+  <button (click)="finalizeTransaction()"
+          [disabled]="selectedItems.length === 0">
+    Finaliser achat
+  </button>
+</div>

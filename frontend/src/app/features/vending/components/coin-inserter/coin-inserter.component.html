@@ -1,1 +1,10 @@
-<p>coin-inserter works!</p>
+<div class="coin-slot">
+  <h3>Insérer une pièce</h3>
+  <div class="coin-options">
+    <button *ngFor="let coin of validCoins" 
+            (click)="insertCoin(coin)"
+            class="coin-btn">
+      {{coin}} MAD
+    </button>
+  </div>
+</div>

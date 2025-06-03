@@ -22,6 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/transactions")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class TransactionController {
 
     private TransactionService transactionService;
@@ -38,6 +39,7 @@ public class TransactionController {
      */
     @PostMapping
     public TransactionDTO createTransaction(@RequestParam(defaultValue = "0.0") float insertedAmount) {
+        System.out.println("insertedAmount ===> "+insertedAmount);
         return transactionService.createTransaction(insertedAmount);
     }
 

@@ -24,12 +24,30 @@ public class TransactionItemServiceImpl implements TransactionItemService {
         log.info("Adding item to transaction [transactionId={}, productId={}, quantity={}]",
                 transaction.getId(), product.getId(), quantity);
 
-        TransactionItem item = new TransactionItem();
-        item.setTransaction(transaction);
-        item.setProduct(product);
-        item.setQuantity(quantity);
+        // Chercher un item existant avec le même produit dans la transaction
+        TransactionItem existingItem = transaction.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(product.getId()))
+                .findFirst()
+                .orElse(null);
 
-        TransactionItem saved = transactionItemRepository.save(item);
+        TransactionItem itemToSave;
+
+        if (existingItem != null) {
+            // Le produit existe déjà : on met à jour la quantité
+            existingItem.setQuantity(existingItem.getQuantity() + quantity);
+            itemToSave = existingItem;
+            log.info("Updated quantity of existing item");
+        } else {
+            // Nouveau produit : on le crée
+            TransactionItem newItem = new TransactionItem();
+            newItem.setTransaction(transaction);
+            newItem.setProduct(product);
+            newItem.setQuantity(quantity);
+            itemToSave = newItem;
+            log.info("Created new transaction item");
+        }
+
+        TransactionItem saved = transactionItemRepository.save(itemToSave);
         return transactionItemMapper.toDTO(saved);
     }
 }

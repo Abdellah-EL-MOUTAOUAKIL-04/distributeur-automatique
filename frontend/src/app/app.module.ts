@@ -1,14 +1,3 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from './app-routing.module';
-
-
-
-@NgModule({
-  declarations: [],
-  imports: [
-    CommonModule,
-    AppRoutingModule
-  ]
-})
-export class AppModule { }
+// This file is no longer needed in standalone mode
+// All configuration is now handled in app.config.ts
+export {}

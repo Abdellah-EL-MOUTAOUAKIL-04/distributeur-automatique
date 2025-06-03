@@ -1,1 +1,37 @@
-<p>vending works!</p>
+<div class="vending-machine-container">
+  <div class="machine-header">
+    <h1>Distributeur Automatique</h1>
+    <div class="balance-display">
+      <div class="display-item">
+        <span>Solde:</span>
+        <span class="amount">{{ balance | currency:'EUR' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <app-coin-inserter 
+    [transactionId]="transactionId" 
+    (coinInserted)="onCoinInserted($event)">
+  </app-coin-inserter>
+
+  <app-product-list 
+    [products]="products" 
+    [balance]="balance" 
+    (productSelected)="onProductSelected($event)">
+  </app-product-list>
+
+  <app-selected-products 
+    [selectedItems]="selectedItems" 
+    [total]="totalSelected" 
+    (itemRemoved)="removeFromCart($event)">
+  </app-selected-products>
+
+  <div class="action-buttons">
+    <button (click)="onTransactionCanceled()" [disabled]="!selectedItems.length">
+      <i class="fas fa-undo"></i> Annuler
+    </button>
+    <button (click)="onTransactionFinalized()" [disabled]="!selectedItems.length || balance < totalSelected">
+      <i class="fas fa-check"></i> Finaliser
+    </button>
+  </div>
+</div>
