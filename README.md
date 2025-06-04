@@ -22,6 +22,7 @@ Mise en œuvre d’une API modulaire et testable pour un distributeur automatiqu
   - [Démonstration de l'Interface Utilisateur (Frontend)](#démonstration-de-linterface-utilisateur-frontend)
   - [Démonstration de l’API](#démonstration-de-lapi)
   - [Hypothèses faites ou ajouts personnels](#hypothèses-faites-ou-ajouts-personnels)
+  - [Les tests](#Les-tests)
   - [Diagramme de conception](#diagramme-de-conception)
 
 ---
@@ -193,6 +194,30 @@ Accès via : [http://localhost:4200](http://localhost:4200)
 
 ---
 
+#### Le dsitributeur automatique
+
+- la machine avec la quelle il interacte l'utilisateur.
+
+![distributeur-ui](./docs/images/distributeur-ui.png)
+
+#### On commence une operation
+
+- en cliquant sur une piece monnaitre la transaction commence et lorsque on clique une autre fois il s'ajoute au solde les produits qui coute moins chere que le montant s'active.
+
+## ![start-tranaction](./docs/images/start-transaction.png)
+
+#### Le choix des produits
+
+- on peut choisir les produits en se basant sur le solde quand a ,avec n'import quelle quantity en respectant seulement la condition que le total inferieur au solde des que tu attient le solde les produits ce desactive.
+
+![choix-produits](./docs/images/choix-des-produits.png)
+
+#### Finalisation de la transaction
+
+- lorsque en clique sur finalise la transaction ce termine et il retourne l'echange d'une maniere optimiser et relance le solde a zero et si tu cliquer sur annuler la transaction sera annuler ,le panier videer et le solde a zero.
+
+![distributeur-ui](./docs/images/retour-de-change-operation-russie.png)
+
 ### Démonstration de l’API
 
 **Obtenir les produits :**
@@ -243,31 +268,11 @@ curl -X POST http://localhost:8080/transactions/{id}/cancel
 
 ---
 
-### Démonstration
+### Les tests
 
-#### Le dsitributeur automatique
+- Comme vous remaarques les tests sont bien passer.
 
-- la machine avec la quelle il interacte l'utilisateur.
-
-![distributeur-ui](./docs/images/distributeur-ui.png)
-
-#### On commence une operation
-
-- en cliquant sur une piece monnaitre la transaction commence et lorsque on clique une autre fois il s'ajoute au solde les produits qui coute moins chere que le montant s'active.
-
-## ![start-tranaction](./docs/images/start-transaction.png)
-
-#### Le choix des produits
-
-- on peut choisir les produits en se basant sur le solde quand a ,avec n'import quelle quantity en respectant seulement la condition que le total inferieur au solde des que tu attient le solde les produits ce desactive.
-
-![choix-produits](./docs/images/choix-des-produits.png)
-
-#### Finalisation de la transaction
-
-- lorsque en clique sur finalise la transaction ce termine et il retourne l'echange d'une maniere optimiser et relance le solde a zero et si tu cliquer sur annuler la transaction sera annuler ,le panier videer et le solde a zero.
-
-![distributeur-ui](./docs/images/retour-de-change-operation-russie.png)
+## ![tests](./docs/images/test-bien-passer.png)
 
 ### Diagramme de conception
 
