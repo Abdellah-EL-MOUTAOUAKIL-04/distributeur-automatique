@@ -1,223 +1,304 @@
+/* General Vending Machine Styles */
 .vending-machine-container {
-  max-width: 1200px;
+  max-width: 800px; /* Narrower for a more typical vending machine profile */
   margin: 2rem auto;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  min-height: 80vh;
+  background: #e0e0e0; /* Light grey, plastic/metal look */
+  border: 5px solid #424242; /* Darker grey border for a solid feel */
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(0,0,0,0.1);
+  font-family: 'Arial', sans-serif; /* Standard, clean font */
 }
 
 .machine-header {
   text-align: center;
-  margin-bottom: 2.5rem;
-  padding: 2rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  background: #333; /* Dark background for display panel */
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
 }
 
-h1 {
-  color: #2c3e50;
-  font-size: 2.8rem;
-  margin-bottom: 1.5rem;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+.machine-header h1 {
+  color: #fff; /* Light text on dark background */
+  font-size: 2.2rem; /* Slightly smaller */
+  margin-bottom: 0.5rem; /* Reduced margin */
+  font-weight: bold;
+  text-transform: uppercase; /* Common for machine labels */
+  letter-spacing: 1px;
 }
 
 .balance-display {
   display: flex;
-  justify-content: center;
+  justify-content: space-between; /* Align items to sides */
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  background: linear-gradient(145deg, #4834d4 0%, #6b5b95 100%);
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(72, 52, 212, 0.2);
-  color: white;
-}
-
-.amount {
-  font-size: 2.2rem;
-  font-weight: 700;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.coin-slot {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.coin-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 1.5rem;
-  justify-content: center;
-  padding: 1.5rem;
-}
-
-.coin-btn {
-  padding: 1rem 1.5rem;
-  border: none;
-  border-radius: 50%;
-  background: linear-gradient(145deg, #4834d4 0%, #6b5b95 100%);
-  color: white;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(72, 52, 212, 0.2);
-}
-
-.coin-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(72, 52, 212, 0.3);
-}
-
-.product-catalog {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  padding: 1.5rem;
-}
-
-.product-card {
-  background: #f8f9fa;
-  padding: 1.5rem;
-  border-radius: 10px;
-  text-align: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-}
-
-.product-card.disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  filter: grayscale(0.5);
-}
-
-.product-card h4 {
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.price {
-  color: #e74c3c;
-  font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 1.2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.product-card button {
-  padding: 0.8rem 1.5rem;
-  border: none;
+  padding: 0.75rem 1.5rem; /* Adjusted padding */
+  background: #222; /* Even darker for LED effect */
+  border: 2px solid #555;
   border-radius: 8px;
-  background: linear-gradient(145deg, #4834d4 0%, #6b5b95 100%);
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.6);
+  color: #00ff00; /* Classic green LED color */
+  font-family: 'Courier New', Courier, monospace; /* Monospaced font for display */
+}
+
+.balance-display .display-item span:first-child {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.balance-display .amount {
+  font-size: 2rem; /* Prominent amount */
+  font-weight: bold;
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00; /* Glow effect */
+}
+
+/* Section Styling */
+.coin-inserter-section,
+.product-list-section,
+.selected-products-section,
+.action-buttons-section {
+  background: #c9c9c9; /* Slightly darker grey for sections */
+  padding: 1.5rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: 1px solid #b0b0b0;
+}
+
+.coin-inserter-section h3,
+.product-list-section h3,
+.selected-products-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #bbb;
+  padding-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+/* Coin Inserter Specific */
+app-coin-inserter .coin-options { /* Targeting via the component selector */
+  display: flex; /* Changed from grid for a row of buttons */
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+app-coin-inserter .coin-btn {
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #555;
+  border-radius: 8px; /* More rectangular buttons */
+  background: linear-gradient(145deg, #7d7d7d, #505050); /* Grey metallic gradient */
   color: white;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.3), inset 0 -2px 2px rgba(0,0,0,0.2);
 }
 
-.product-card button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(72, 52, 212, 0.3);
+app-coin-inserter .coin-btn:hover {
+  background: linear-gradient(145deg, #8a8a8a, #5c5c5c);
+  box-shadow: 0 4px 7px rgba(0,0,0,0.4), inset 0 -2px 2px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
 }
 
-.product-card button:disabled {
-  background: #bdc3c7;
-  cursor: not-allowed;
-  opacity: 0.7;
+app-coin-inserter .coin-btn:active {
+  background: linear-gradient(145deg, #505050, #7d7d7d);
+  box-shadow: 0 2px 3px rgba(0,0,0,0.3), inset 0 2px 2px rgba(0,0,0,0.2);
+  transform: translateY(1px);
 }
 
-.selected-items {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
 
-.items-list {
-  display: flex;
-  flex-direction: column;
+/* Product List Specific */
+app-product-list .products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Smaller product cards */
   gap: 1rem;
 }
 
-.selected-item {
-  display: flex;
-  justify-content: space-between;
+app-product-list .product-card {
+  background: #f0f0f0; /* Lighter card background */
   padding: 1rem;
-  background: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  border: 1px solid #d0d0d0;
 }
 
-.total {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 2px solid #e9ecef;
+app-product-list .product-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+app-product-list .product-card.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #e0e0e0;
+  filter: grayscale(0.7);
+}
+
+app-product-list .product-card h4 {
+  color: #333;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem; /* Smaller font for product name */
+  font-weight: bold;
+  height: 40px; /* Fixed height for alignment */
+  overflow: hidden;
+}
+
+app-product-list .product-card .price {
+  color: #d35400; /* Orange price, typical for vending */
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+app-product-list .product-card button {
+  padding: 0.6rem 1rem;
+  border: 2px solid #3498db; /* Blue accent for select button */
+  border-radius: 6px;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+app-product-list .product-card button:hover {
+  background: #2980b9;
+  border-color: #2980b9;
+}
+
+app-product-list .product-card button:disabled {
+  background: #bdc3c7;
+  border-color: #bdc3c7;
+  color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+/* Selected Products Specific */
+app-selected-products .items-list {
+  max-height: 150px; /* Limit height and allow scroll if needed */
+  overflow-y: auto;
+  padding-right: 0.5rem; /* For scrollbar */
+}
+
+app-selected-products .selected-item {
   display: flex;
   justify-content: space-between;
-  font-weight: 700;
-  font-size: 1.2rem;
+  align-items: center;
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  margin-bottom: 0.5rem; /* Spacing between items */
+  border: 1px solid #ddd;
 }
 
-.amount {
-  color: #2ecc71;
+app-selected-products .selected-item span {
+  font-size: 0.9rem;
+}
+
+app-selected-products .total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed #bbb; /* Dashed line for total */
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+app-selected-products .total .amount {
+  color: #27ae60; /* Green for total amount */
   font-size: 1.3rem;
 }
 
+/* Action Buttons */
 .action-buttons {
   display: flex;
   gap: 1rem;
-  justify-content: center;
-  margin-top: 2rem;
+  justify-content: center; /* Center buttons */
+  margin-top: 1rem; /* Reduced margin */
 }
 
-button {
-  padding: 1rem 2rem;
-  border: none;
+.action-buttons button {
+  padding: 0.8rem 1.5rem;
   border-radius: 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 600;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 }
 
-button:not(:disabled) {
-  background: linear-gradient(145deg, #4834d4 0%, #6b5b95 100%);
+/* Cancel Button */
+.action-buttons button[type="button"] { /* Assuming cancel is a generic button */
+  background: #e74c3c; /* Red for cancel/annuler */
   color: white;
-  box-shadow: 0 4px 15px rgba(72, 52, 212, 0.2);
+  border: 2px solid #c0392b;
 }
 
-button:not(:disabled):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(72, 52, 212, 0.3);
+.action-buttons button[type="button"]:hover {
+  background: #c0392b;
 }
 
-button:disabled {
-  background: #bdc3c7;
-  color: #666;
+/* Purchase Button */
+.action-buttons button[type="submit"] { /* Assuming purchase is a submit button */
+  background: #2ecc71; /* Green for purchase/payer */
+  color: white;
+  border: 2px solid #27ae60;
+}
+
+.action-buttons button[type="submit"]:hover {
+  background: #27ae60;
+}
+
+.action-buttons button:disabled {
+  background: #95a5a6;
+  color: #ecf0f1;
   cursor: not-allowed;
-  opacity: 0.7;
+  border-color: #7f8c8d;
+  box-shadow: none;
+}
+
+/* Font Awesome Icons */
+.action-buttons button i {
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 600px) {
+  .vending-machine-container {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .machine-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .balance-display .amount {
+    font-size: 1.5rem;
+  }
+
+  app-product-list .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Even smaller cards on mobile */
+  }
+
+  app-product-list .product-card h4 {
+    font-size: 0.9rem;
+    height: 30px;
+  }
+
+  .action-buttons {
+    flex-direction: column; /* Stack buttons on small screens */
+  }
 }

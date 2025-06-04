@@ -7,6 +7,7 @@ import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.TransactionDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.ProductDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Product;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Transaction;
+import ma.abdellahelmoutaouakil.distributeurautomatique.entities.TransactionItem;
 import ma.abdellahelmoutaouakil.distributeurautomatique.enums.TransactionStatus;
 import ma.abdellahelmoutaouakil.distributeurautomatique.exceptions.InsufficientFundsException;
 import ma.abdellahelmoutaouakil.distributeurautomatique.mappers.TransactionMapper;
@@ -28,10 +29,12 @@ public class VendingMachineServiceImpl implements VendingMachineService {
     private TransactionMapper transactionMapper;
 
     @Override
-    public float calculateTotal(List<Product> products) {
-        float total = (float) products.stream()
-                .mapToDouble(Product::getPrice)
+    public float calculateTotal(List<TransactionItem> transactionItems) {
+        float total = (float) transactionItems.stream()
+                .filter(item -> item.getProduct() != null)
+                .mapToDouble(item -> item.getQuantity() * item.getProduct().getPrice())
                 .sum();
+
         log.info("Calculated total price of products: {}", total);
         return total;
     }
@@ -44,16 +47,16 @@ public class VendingMachineServiceImpl implements VendingMachineService {
     }
 
     @Override
-    public boolean canDistribute(List<Product> products, float insertedAmount) {
-        float total = calculateTotal(products);
+    public boolean canDistribute(List<TransactionItem> transactionItems, float insertedAmount) {
+        float total = calculateTotal(transactionItems);
         boolean result = insertedAmount >= total;
         log.info("Can distribute? insertedAmount = {}, total = {}, result = {}", insertedAmount, total, result);
         return result;
     }
 
     @Override
-    public TransactionDTO distributeProducts(Transaction transaction, List<Product> products) {
-        float total = calculateTotal(products);
+    public TransactionDTO distributeProducts(Transaction transaction, List<TransactionItem> transactionItems) {
+        float total = calculateTotal(transactionItems);
         if (transaction.getInsertedAmount() < total) {
             throw new InsufficientFundsException();
         }
@@ -68,8 +71,8 @@ public class VendingMachineServiceImpl implements VendingMachineService {
     }
 
     @Override
-    public boolean isProductPurchasable(Product product, float insertedAmount) {
-        boolean purchasable = product.getPrice() <= insertedAmount;
+    public boolean isProductPurchasable(Product product,int quantity, float insertedAmount) {
+        boolean purchasable = product.getPrice()*quantity <= insertedAmount;
         log.debug("Checking if product '{}' is purchasable with {} MAD: {}", product.getName(), insertedAmount, purchasable);
         return purchasable;
     }

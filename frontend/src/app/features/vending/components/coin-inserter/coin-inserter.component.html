@@ -4,7 +4,8 @@
     <button *ngFor="let coin of validCoins" 
             (click)="insertCoin(coin)"
             class="coin-btn">
-      {{coin}} MAD
+      <img [src]="'assets/coins/' + coin + '.png'" [alt]="coin + ' MAD coin'" class="coin-image">
+      <span class="coin-value">{{coin}} MAD</span>
     </button>
   </div>
 </div>

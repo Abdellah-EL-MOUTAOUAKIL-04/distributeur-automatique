@@ -1,0 +1,147 @@
+/* Styles for Transaction Summary Component */
+.transaction-summary-container {
+  padding: 1.5rem;
+  background-color: #c9c9c9; /* Matches section style */
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: 1px solid #b0b0b0;
+}
+
+.transaction-summary-header {
+  text-align: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #888;
+}
+
+.transaction-summary-header h2 {
+  font-size: 1.5em;
+  margin: 0;
+  color: #222;
+  text-transform: uppercase;
+}
+
+.transaction-items-list {
+  margin-bottom: 15px;
+  max-height: 200px; /* If many items */
+  overflow-y: auto;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 0.9em;
+}
+
+.transaction-item .item-name {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.transaction-item .item-qty {
+  width: 40px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.transaction-item .item-price {
+  width: 70px;
+  text-align: right;
+}
+
+.transaction-summary-totals {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #888;
+}
+
+.total-line {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.total-line .label {
+  font-weight: bold;
+}
+
+.total-line .value {
+  font-weight: bold;
+}
+
+.total-line.total-paid .value {
+  color: #27ae60; /* Green for paid amount */
+}
+
+.total-line.change-given .value {
+  color: #e67e22; /* Orange for change */
+}
+
+.transaction-summary-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.transaction-summary-actions .close-btn {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.transaction-summary-actions .close-btn:hover {
+  background-color: #2980b9;
+}
+
+.transaction-summary-actions .btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: bold;
+  margin: 0 5px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.transaction-summary-actions .btn:hover {
+  opacity: 0.9;
+}
+
+.transaction-summary-actions .btn:active {
+  transform: translateY(1px);
+}
+
+.transaction-summary-actions .btn-cancel {
+  background-color: #e74c3c; /* Red */
+  color: white;
+}
+
+.transaction-summary-actions .btn-finalize {
+  background-color: #2ecc71; /* Green */
+  color: white;
+}
+
+.transaction-summary-actions .btn:disabled {
+  background-color: #bdc3c7; /* Light grey for disabled */
+  color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+/* Optional: if it's a modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 999;
+}

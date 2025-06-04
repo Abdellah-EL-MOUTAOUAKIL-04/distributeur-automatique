@@ -1,0 +1,18 @@
+<div class="change-dialog-overlay" (click)="onClose()">
+  <div class="change-dialog-content" (click)="$event.stopPropagation()">
+    <h3 class="dialog-title">Monnaie Rendue</h3>
+    <div class="coins-container" *ngIf="changeBreakdown && getCoinEntries().length > 0; else noChange">
+      <div *ngFor="let entry of getCoinEntries()" class="coin-entry">
+        <img [src]="'assets/coins/' + entry.coinValue + '.png'" [alt]="entry.coinValue + ' MAD'" class="coin-image">
+        <span class="coin-info">{{ entry.coinValue }} MAD x {{ entry.quantity }}</span>
+      </div>
+    </div>
+    <div>
+      <p class="total-change-amount">Total à rendre: {{ totalChangeAmount | currency:'MAD':'symbol':'1.0-2' }}</p>
+    </div>
+    <ng-template #noChange>
+      <p>Aucune monnaie à rendre.</p>
+    </ng-template>
+    <button class="btn btn-close" (click)="onClose()">Fermer</button>
+  </div>
+</div>

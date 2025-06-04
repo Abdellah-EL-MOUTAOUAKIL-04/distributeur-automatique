@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.abdellahelmoutaouakil.distributeurautomatique.enums.TransactionStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,5 +34,5 @@ public class Transaction {
     private TransactionStatus status;
 
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionItem> items;
+    private List<TransactionItem> items=new ArrayList<>();
 }

@@ -101,8 +101,8 @@ class TransactionControllerTest {
         when(transactionService.getById(1L)).thenReturn(transaction);
         when(productService.getById(1L)).thenReturn(dto);
         when(productMapper.fromDTO(dto)).thenReturn(product);
-        when(vendingMachineService.isProductPurchasable(product, 3.0f)).thenReturn(true);
-        when(transactionItemService.addItem(transaction, product, 1)).thenReturn(itemDTO);
+        when(vendingMachineService.isProductPurchasable(product, 1,3.0f)).thenReturn(true);
+        when(transactionItemService.addItem(transaction, product,1)).thenReturn(itemDTO);
 
         mockMvc.perform(post("/transactions/1/select?productId=1&quantity=1"))
                 .andExpect(status().isOk());

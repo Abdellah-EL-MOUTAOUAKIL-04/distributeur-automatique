@@ -1,7 +1,44 @@
-<div class="action-buttons">
-  <button (click)="cancelTransaction()">Annuler</button>
-  <button (click)="finalizeTransaction()"
-          [disabled]="selectedItems.length === 0">
-    Finaliser achat
-  </button>
+<div class="transaction-summary-container">
+  <div class="transaction-summary-header">
+    <h2>Récapitulatif</h2>
+  </div>
+
+  <div *ngIf="selectedItems.length > 0; else emptySummary">
+    <div class="transaction-items-list">
+      <div *ngFor="let item of selectedItems" class="transaction-item">
+        <span class="item-name">{{ item.product.name }}</span>
+        <span class="item-qty">x {{ item.quantity }}</span>
+        <span class="item-price">{{ (item.product.price * item.quantity) | currency:'MAD':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <div class="transaction-summary-totals">
+      <div class="total-line">
+        <span class="label">Sous-total :</span>
+        <span class="value">{{ calculateSubtotal() | currency:'MAD':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="total-line total-paid">
+        <span class="label">Montant inséré :</span>
+        <span class="value">{{ balance | currency:'MAD':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptySummary>
+    <p class="empty-summary-message">Aucun article sélectionné.</p>
+  </ng-template>
+
+  <div class="transaction-summary-actions">
+    <button class="btn btn-cancel" (click)="cancelTransaction()">Annuler</button>
+    <button class="btn btn-finalize" (click)="finalizeTransaction()" [disabled]="selectedItems.length === 0">
+      Finaliser l'achat
+    </button>
+  </div>
+
+  <app-change-dialog
+    *ngIf="showChangeDialog"
+    [changeBreakdown]="currentChangeBreakdown"
+    (closeDialog)="handleCloseChangeDialog()"
+  ></app-change-dialog>
+
 </div>

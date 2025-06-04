@@ -1,30 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { VendingService } from '../../core/services/vending.service';
+import { ProductDTO } from './models/product.dto';
+import { TransactionDTO, TransactionItemDTO } from './models/transaction.dto';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CoinInserterComponent } from './components/coin-inserter/coin-inserter.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
-
-interface ProductDTO {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface TransactionDTO {
-  id: number;
-  insertedAmount: number;
-  changeGiven: number;
-  items: TransactionItemDTO[];
-}
-
-interface TransactionItemDTO {
-  id: number;
-  productId: number;
-  quantity: number;
-  product: ProductDTO;
-}
+import { SelectedProductsComponent } from './components/selected-products/selected-products.component';
+import { TransactionSummaryComponent } from './components/transaction-summary/transaction-summary.component';
 
 @Component({
   standalone: true,
@@ -35,26 +18,26 @@ interface TransactionItemDTO {
     CommonModule,
     FontAwesomeModule,
     CoinInserterComponent,
-    ProductListComponent
+    ProductListComponent,
+    SelectedProductsComponent,
+    TransactionSummaryComponent
   ]
 })
 export class VendingComponent implements OnInit {
   balance: number = 0;
   products: ProductDTO[] = [];
   selectedItems: TransactionItemDTO[] = [];
-  validCoins = [0.5, 1, 2, 5, 10];
-  apiUrl = 'http://localhost:8080';
+  validCoins = [0.5, 1, 2, 5, 10]; // This might move to CoinInserterComponent or be fed by VendingService if dynamic
   transactionId: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private vendingService: VendingService) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
   loadProducts(): void {
-    this.http
-      .get<ProductDTO[]>(`${this.apiUrl}/products`)
+    this.vendingService.getProducts()
       .subscribe({
         next: (products) => {
           this.products = products;
@@ -83,12 +66,7 @@ export class VendingComponent implements OnInit {
        return;
     }
 
-    const params = new HttpParams()
-      .set('productId', product.id.toString())
-      .set('quantity', '1'); // Default quantity to 1 as per backend
-
-    this.http
-      .post<TransactionItemDTO>(`${this.apiUrl}/transactions/${this.transactionId}/select`, null, { params })
+    this.vendingService.selectProduct(this.transactionId, product.id, 1) // Assuming quantity 1 for selection
       .subscribe({
         next: (selectedItemDTO) => {
           // Assuming selectedItemDTO.product is populated by the backend mapper.
@@ -132,39 +110,23 @@ export class VendingComponent implements OnInit {
     }
   }
 
-  onTransactionCanceled(): void {
-    if (this.transactionId) {
-      this.http
-        .post(`${this.apiUrl}/transactions/${this.transactionId}/cancel`, {})
-        .subscribe({
-          next: (response) => {
-            this.balance = 0;
-            this.selectedItems = [];
-            this.transactionId = null;
-          },
-          error: (error) => {
-            console.error('Error canceling transaction:', error);
-          },
-        });
-    }
+  // Called when TransactionSummaryComponent emits transactionCanceled
+  handleTransactionCanceled(): void {
+    this.balance = 0;
+    this.selectedItems = [];
+    this.transactionId = null;
+    // Potentially refresh products if stock changed and wasn't updated by other means
+    // this.loadProducts(); 
   }
 
-  onTransactionFinalized(): void {
-    if (this.transactionId) {
-      this.http
-        .post(`${this.apiUrl}/transactions/${this.transactionId}/confirm`, {})
-        .subscribe({
-          next: (response: any) => {
-            this.balance = 0;
-            this.selectedItems = [];
-            this.transactionId = null;
-            alert('Transaction réussie!\n' + 
-                  'Monnaie rendue: ' + response.change + '€');
-          },
-          error: (error) => {
-            console.error('Error confirming transaction:', error);
-          },
-        });
-    }
+  // Called when TransactionSummaryComponent emits transactionFinalized
+  handleTransactionFinalized(event?: { change?: number }): void { // Event might carry change info
+    this.balance = 0;
+    this.selectedItems = [];
+    this.transactionId = null;
+    // The alert is now handled by TransactionSummaryComponent
+    // If you need to display change here or do other UI updates, use the event data.
+    // Potentially refresh products
+    // this.loadProducts();
   }
 }

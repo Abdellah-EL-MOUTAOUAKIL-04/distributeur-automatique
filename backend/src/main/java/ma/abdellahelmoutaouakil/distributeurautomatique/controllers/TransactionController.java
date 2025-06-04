@@ -39,7 +39,6 @@ public class TransactionController {
      */
     @PostMapping
     public TransactionDTO createTransaction(@RequestParam(defaultValue = "0.0") float insertedAmount) {
-        System.out.println("insertedAmount ===> "+insertedAmount);
         return transactionService.createTransaction(insertedAmount);
     }
 
@@ -67,7 +66,7 @@ public class TransactionController {
         ProductDTO productDTO = productService.getById(productId);
         Product product = productMapper.fromDTO(productDTO);
 
-        if (!vendingMachineService.isProductPurchasable(product, transaction.getInsertedAmount())) {
+        if (!vendingMachineService.isProductPurchasable(product,quantity, transaction.getInsertedAmount())) {
             return ResponseEntity.badRequest().body(Map.of("error", "Fonds insuffisants pour ce produit."));
         }
 
@@ -85,12 +84,13 @@ public class TransactionController {
         List<Product> selectedProducts = transaction.getItems().stream()
                 .map(TransactionItem::getProduct)
                 .toList();
+        List<TransactionItem> transactionItems = transaction.getItems();
 
-        TransactionDTO finalizedTransaction = vendingMachineService.distributeProducts(transaction, selectedProducts);
+        TransactionDTO finalizedTransaction = vendingMachineService.distributeProducts(transaction, transactionItems);
 
         Map<Float, Integer> change = vendingMachineService.getChange(
                 transaction.getInsertedAmount(),
-                vendingMachineService.calculateTotal(selectedProducts)
+                vendingMachineService.calculateTotal(transactionItems)
         );
 
         return ResponseEntity.ok(Map.of(

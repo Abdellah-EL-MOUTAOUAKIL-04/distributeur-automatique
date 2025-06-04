@@ -4,20 +4,21 @@ import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.ProductDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.dtos.TransactionDTO;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Product;
 import ma.abdellahelmoutaouakil.distributeurautomatique.entities.Transaction;
+import ma.abdellahelmoutaouakil.distributeurautomatique.entities.TransactionItem;
 
 import java.util.List;
 import java.util.Map;
 
 public interface VendingMachineService {
-    float calculateTotal(List<Product> products);
+    float calculateTotal(List<TransactionItem> transactionItems);
 
     float calculateChange(float insertedAmount, float totalPrice);
 
-    boolean canDistribute(List<Product> products, float insertedAmount);
+    boolean canDistribute(List<TransactionItem> transactionItems, float insertedAmount);
 
-    TransactionDTO distributeProducts(Transaction transaction, List<Product> products);
+    TransactionDTO distributeProducts(Transaction transaction, List<TransactionItem> transactionItems);
 
-    boolean isProductPurchasable(Product product, float insertedAmount);
+    boolean isProductPurchasable(Product product,int quantity, float insertedAmount);
 
     void validateCoin(float coin);
 

@@ -1,0 +1,69 @@
+/* Styles for Coin Inserter Component */
+.coin-slot {
+  padding: 1.5rem;
+  background-color: #b0b0b0; /* Slightly darker grey for the slot area */
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+  border: 1px solid #999;
+}
+
+.coin-slot h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #2c3e50; /* Dark blue-grey text */
+  font-size: 1.2em;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.coin-options {
+  display: flex;
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+  justify-content: center;
+  gap: 1rem; /* Spacing between coin buttons */
+}
+
+.coin-btn {
+  display: flex;
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center;
+  justify-content: center;
+  width: 90px; /* Fixed width for coin buttons */
+  height: 90px; /* Fixed height for coin buttons */
+  padding: 0.5rem;
+  border: 2px solid #6c757d; /* Grey border */
+  border-radius: 50%; /* Circular buttons for coins */
+  background: linear-gradient(145deg, #e0e0e0, #b8b8b8); /* Light metallic gradient */
+  color: #343a40; /* Dark text color */
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15), inset 0 -3px 3px rgba(0,0,0,0.1);
+}
+
+.coin-btn:hover {
+  background: linear-gradient(145deg, #ebebeb, #c0c0c0);
+  border-color: #5a6268;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2), inset 0 -3px 3px rgba(0,0,0,0.1);
+}
+
+.coin-btn:active {
+  background: linear-gradient(145deg, #b8b8b8, #e0e0e0);
+  transform: translateY(1px) scale(0.98);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15), inset 0 2px 2px rgba(0,0,0,0.1);
+}
+
+.coin-image {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  margin-bottom: 0.3rem; /* Space between image and text */
+  object-fit: contain; /* Ensure image scales nicely */
+}
+
+.coin-value {
+  font-size: 0.85em;
+  text-align: center;
+}

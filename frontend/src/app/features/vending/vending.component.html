@@ -4,7 +4,7 @@
     <div class="balance-display">
       <div class="display-item">
         <span>Solde:</span>
-        <span class="amount">{{ balance | currency:'EUR' }}</span>
+        <span class="amount">{{ balance | currency:'MAD':'symbol':'1.2-2' }}</span>
       </div>
     </div>
   </div>
@@ -17,21 +17,20 @@
   <app-product-list 
     [products]="products" 
     [balance]="balance" 
+    [totalSelectedItemsCost]="totalSelected"
     (productSelected)="onProductSelected($event)">
   </app-product-list>
 
   <app-selected-products 
     [selectedItems]="selectedItems" 
-    [total]="totalSelected" 
-    (itemRemoved)="removeFromCart($event)">
+    [total]="totalSelected">
   </app-selected-products>
 
-  <div class="action-buttons">
-    <button (click)="onTransactionCanceled()" [disabled]="!selectedItems.length">
-      <i class="fas fa-undo"></i> Annuler
-    </button>
-    <button (click)="onTransactionFinalized()" [disabled]="!selectedItems.length || balance < totalSelected">
-      <i class="fas fa-check"></i> Finaliser
-    </button>
-  </div>
+  <app-transaction-summary
+    [balance]="balance"
+    [selectedItems]="selectedItems"
+    [transactionId]="transactionId"
+    (transactionCanceled)="handleTransactionCanceled()"
+    (transactionFinalized)="handleTransactionFinalized()">
+  </app-transaction-summary>
 </div>

@@ -2,11 +2,8 @@
   <h2>Catalogue des produits</h2>
   <div class="products-grid">
     <div *ngFor="let product of products" class="product-card" [class.disabled]="!canPurchase(product)">
-      <div class="product-image">
-        <img [src]="'assets/products/' + product.id + '.jpg'" alt="{{ product.name }}" />
-      </div>
       <h4>{{ product.name }}</h4>
-      <div class="price">{{ product.price | currency:'EUR' }}</div>
+      <div class="price">{{ product.price | currency:'MAD' }}</div>
       <button (click)="onProductSelected(product)" [disabled]="!canPurchase(product)">
         <i class="fas fa-shopping-cart"></i> Sélectionner
       </button>

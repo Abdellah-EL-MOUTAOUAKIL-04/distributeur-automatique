@@ -1,13 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ProductDTO, TransactionItemDTO } from '../../models/transaction.dto';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-}
+import { ProductDTO } from '../../models/product.dto';
 
 @Component({
   selector: 'app-product-list',
@@ -20,6 +14,7 @@ export class ProductListComponent implements OnInit {
   @Input() products: ProductDTO[] = [];
   @Input() balance: number = 0;
   @Input() transactionId: number | null = null;
+  @Input() totalSelectedItemsCost: number = 0;
   @Output() productSelected = new EventEmitter<ProductDTO>();
 
   constructor() { }
@@ -31,7 +26,8 @@ export class ProductListComponent implements OnInit {
   }
 
   canPurchase(product: ProductDTO): boolean {
-    return this.balance >= product.price;
+    const remainingBalanceAfterCart = this.balance - this.totalSelectedItemsCost;
+    return remainingBalanceAfterCart >= product.price;
   }
 
   selectProduct(product: ProductDTO): void {

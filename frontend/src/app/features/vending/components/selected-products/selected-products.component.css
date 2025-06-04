@@ -1,0 +1,83 @@
+/* Styles for Selected Products Component */
+.selected-items-container {
+  padding: 1.5rem;
+  background-color: #c9c9c9; /* Matches section style */
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border: 1px solid #b0b0b0;
+}
+
+.selected-items-container h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  font-size: 1.3em;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #bbb;
+  padding-bottom: 0.75rem;
+}
+
+.empty-cart-message {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+.items-list {
+  max-height: 180px; /* Limit height for scrollability */
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  padding-right: 0.5rem; /* Space for scrollbar */
+}
+
+.selected-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.4rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  border: 1px solid #e0e0e0;
+  font-size: 0.9em;
+}
+
+.item-details {
+  display: flex;
+  justify-content: space-between;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.item-details span { /* General styling for text within item details */
+  color: #333;
+}
+
+.item-details .price {
+  font-weight: bold;
+  color: #555; /* Slightly less prominent than total price */
+  margin-left: 1rem; /* Space between name/qty and price */
+  min-width: 70px; /* Ensure alignment */
+  text-align: right;
+}
+
+.cart-total {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px dashed #bbb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.cart-total .total-amount {
+  color: #27ae60; /* Green for the final total, consistent with vending machine */
+  font-size: 1.3em;
+}
