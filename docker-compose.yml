@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Host port:Container port for the backend
+    container_name: distributeur-automatique-backend
+    networks:
+      - vending-app-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80" # Host port:Container port for the frontend (Nginx serves on 80)
+    container_name: distributeur-automatique-frontend
+    depends_on: # Ensures backend service is started before frontend, but doesn't mean backend is fully ready
+      - backend
+    networks:
+      - vending-app-network
+
+networks:
+  vending-app-network:
+    driver: bridge
